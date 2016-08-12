@@ -10,7 +10,10 @@ socket.onclosed = function () {
 };
 
 socket.onmessage = function (event) {
-  console.log(event.data);
+	var p = document.createElement("p"); 
+	var text = document.createTextNode(event.data);
+	p.appendChild(text);
+	document.getElementById("body").appendChild(p);
 }
 
 document.getElementById("message")
