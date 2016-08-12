@@ -20,12 +20,19 @@ document.getElementById("message")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
+    	var username = document.getElementById("username").value;
     	var message = document.getElementById("message").value;
+
+    	var toSend = {
+    		Name: username,
+    		Body: message
+    	};
+
     	document.getElementById("message").value = "";
-    	processInput(message)
+    	processInput(toSend)
     }
 });
 
 function processInput(message) {
-	socket.send(message);
+	socket.send(JSON.stringify(message));
 }

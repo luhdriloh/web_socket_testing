@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/gorilla/websocket"
 )
 
@@ -10,14 +11,22 @@ type Client struct {
 	Incoming chan []byte
 }
 
+type Message struct {
+	Name string
+	Body string
+}
+
 func (client *Client) Read() {
+	message := Message{}
 	for {
-		_, p, err := client.Conn.ReadMessage()
+		err := client.Conn.ReadJSON(&message)
 		if err != nil {
+			fmt.Println(err)
 			return
 		}
+		fmt.Printf("%v\n", message)
 
-		client.Incoming <- p
+		// client.Incoming <- p
 	}
 }
 
